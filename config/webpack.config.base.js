@@ -1,7 +1,7 @@
-module.exports = (context) => {
+module.exports = (ctx) => {
   return {
-    entry: context.getConfig('entry'),
-    mode: context.getMode(),
+    entry: ctx.getConfig('entry'),
+    mode: ctx.getMode(),
     module: {
       rules: [
         {
@@ -11,8 +11,8 @@ module.exports = (context) => {
             {
               loader: 'ts-loader',
               options: {
-                context: context.getDirectory('project'),
-                configFile: context.getConfigFilePath('tsconfig.json')
+                context: ctx.getDirectory('project'),
+                configFile: ctx.getConfigFilePath('tsconfig.json')
               }
             }
           ]
@@ -23,12 +23,12 @@ module.exports = (context) => {
       extensions: ['*', '.js', '.jsx', '.ts', '.tsx']
     },
     output: {
-      path: context.getDirectory('dist'),
+      path: ctx.getDirectory('dist'),
       publicPath: '/',
       filename: 'bundle.js'
     },
     devServer: {
-      contentBase: context.getDirectory('static')
+      contentBase: ctx.getDirectory('static')
     }
   }
 }

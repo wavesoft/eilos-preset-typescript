@@ -1,7 +1,8 @@
 
 module.exports = {
   _actions: {
-    build: require('./actions/build')
+    build: require('./actions/build'),
+    test: require('./actions/test')
   },
 
   options: {
@@ -10,5 +11,6 @@ module.exports = {
 
   entry: './src/index.ts',
   webpack: {},
-  tsconfig: {}
+  tsconfig: {},
+  jest: {}
 }
