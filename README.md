@@ -8,6 +8,7 @@ This preset can be used for a typical, modern Typescript project with React.
 * Typescript (3.9)
 * React (16.9)
 * Jest (26.0)
+* SASS (1.26)
 
 ## Supported Lifecycle Steps
 

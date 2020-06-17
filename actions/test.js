@@ -1,5 +1,3 @@
-const webpack = require('webpack')
-
 const configJest = require('../config/jest.config')
 const configTs = require('../config/tsconfig')
 
@@ -23,7 +21,7 @@ module.exports = {
     const cfgFile = ctx.getConfigFilePath('jest.config.js')
     const argv = ctx.getConfig('argv', [])
 
-    ctx.exec('jest', [].concat(
+    return ctx.exec('jest', [].concat(
       ['--config=' + cfgFile],
       argv
     ))

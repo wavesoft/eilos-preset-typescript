@@ -29,7 +29,7 @@ module.exports = {
     const cfgFile = ctx.getConfigFilePath('webpack.config.js')
     const argv = ctx.getConfig('argv', [])
 
-    return ctx.exec('webpack', [].concat(
+    return ctx.exec('webpack-dev-server', [].concat(
       ['--config', cfgFile],
       argv
     ))
