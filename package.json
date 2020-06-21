@@ -6,10 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin": {
-    "eilos": "./bin/eilos.js"
+  "publishConfig": {
+    "access": "public"
   },
-  "author": "Ioannis Charalampidis",
+  "tags": [
+    "eilos",
+    "eilos-preset",
+    "typescript",
+    "webpack",
+    "jest"
+  ],
+  "author": "Ioannis Charalampidis <ioannis@charalampidis.me>",
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.10.2",
