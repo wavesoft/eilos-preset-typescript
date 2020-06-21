@@ -24,6 +24,7 @@ module.exports = (ctx) => {
       outDir: ctx.getDirectory("dist"),
       baseUrl: ctx.getDirectory("project"),
       importsNotUsedAsValues: "preserve",
+      moduleResolution: "node",
     },
     include: [
       ...new Set(includeDirs),

@@ -11,8 +11,7 @@ module.exports = (ctx) => {
       typescript: {
         context: ctx.getDirectory("project"),
         configFile: ctx.getConfigFilePath("tsconfig.json"),
-        profile: true,
-      }
+      },
     })
   );
   plugins.push(
@@ -84,7 +83,7 @@ module.exports = (ctx) => {
     output: {
       path: ctx.getDirectory("dist"),
       publicPath: "/",
-      filename: "[id].js",
+      filename: "[name].js",
     },
     devServer: {
       contentBase: ctx.getDirectory("static"),
