@@ -10,6 +10,7 @@ module.exports = {
   },
 
   entry: "./src/index.ts",
+  library: false,
   output: "[id].js",
 
   webpack: {},
