@@ -22,4 +22,6 @@ This preset can be used for a typical, modern Typescript project with React.
   }
   ...
 }
-````
+```
+
+Builds your project using [Webpack](https://webpack.js.org/guides/typescript) and the typescript engine.
