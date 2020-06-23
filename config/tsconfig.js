@@ -17,6 +17,7 @@ module.exports = (ctx) => {
       allowJs: true,
       allowSyntheticDefaultImports: true,
       esModuleInterop: true,
+      resolveJsonModule: true,
       baseUrl: ctx.getDirectory("project"),
       declaration: true,
       importsNotUsedAsValues: "preserve",

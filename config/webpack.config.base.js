@@ -20,7 +20,7 @@ module.exports = (ctx) => {
   const plugins = [
     new MiniCssExtractPlugin({
       filename: "[name].css",
-      chunkFilename: "[id].css",
+      chunkFilename: "[name].css",
     }),
   ];
 
@@ -86,16 +86,14 @@ module.exports = (ctx) => {
         },
         {
           test: /\.css$/i,
-          exclude: /node_modules/,
           use: [MiniCssExtractPlugin.loader, "css-loader"],
         },
         {
           test: /\.s[ac]ss$/i,
-          exclude: /node_modules/,
           use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
         },
         {
-          test: /\.[tj]sx?$/,
+          test: /\.([tj]sx?|json)$/i,
           exclude: /node_modules/,
           use: [
             {
