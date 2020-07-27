@@ -3,6 +3,7 @@ module.exports = {
     build: require("./actions/build"),
     test: require("./actions/test"),
     dev: require("./actions/dev"),
+    lint: require("./actions/lint"),
   },
 
   options: {
