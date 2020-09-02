@@ -76,7 +76,7 @@ module.exports = (ctx) => {
     module: {
       rules: [
         {
-          test: /\.(png|jpe?g|gif)$/i,
+          test: /\.(png|jpe?g|gif|svg)$/i,
           exclude: /node_modules/,
           use: [
             {
