@@ -76,13 +76,17 @@ module.exports = (ctx) => {
     module: {
       rules: [
         {
-          test: /\.(png|jpe?g|gif|svg)$/i,
+          test: /\.(png|jpe?g|gif)$/i,
           exclude: /node_modules/,
           use: [
             {
               loader: "file-loader",
             },
           ],
+        },
+        {
+          test: /\.svg$/,
+          use: ['@svgr/webpack'],
         },
         {
           test: /\.css$/i,
