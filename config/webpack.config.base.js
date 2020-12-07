@@ -3,7 +3,6 @@ const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const DeclarationBundlerPlugin = require("declaration-bundler-webpack-plugin");
 
 function getEntryConfig(ctx) {
   const entry = ctx.getConfig("entry");
@@ -76,17 +75,17 @@ module.exports = (ctx) => {
     module: {
       rules: [
         {
-          test: /\.(png|jpe?g|gif)$/i,
+          test: /\.react.svg$/,
+          use: ['@svgr/webpack'],
+        },
+        {
+          test: /\.(png|jpe?g|gif|svg)$/i,
           exclude: /node_modules/,
           use: [
             {
               loader: "file-loader",
             },
           ],
-        },
-        {
-          test: /\.svg$/,
-          use: ['@svgr/webpack'],
         },
         {
           test: /\.css$/i,

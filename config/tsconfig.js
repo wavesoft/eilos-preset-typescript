@@ -31,7 +31,7 @@ module.exports = (ctx) => {
       outDir: ctx.getDirectory("dist"),
       sourceMap: true,
       strict: true,
-      target: "es5",
+      target: "es6",
     },
     include: [
       ...new Set(includeDirs),

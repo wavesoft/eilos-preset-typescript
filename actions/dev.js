@@ -1,6 +1,7 @@
 const configWebpackBase = require("../config/webpack.config.base");
 const configWebpackHot = require("../config/webpack.config.hot");
 const configTs = require("../config/tsconfig");
+const tsTypings = require("../config/tstypings");
 
 module.exports = {
   files: {
@@ -23,6 +24,7 @@ module.exports = {
 
       return merge(configTs(ctx), userConfig);
     },
+    "@types/typings.d.ts": tsTypings,
   },
 
   run: (ctx) => {
