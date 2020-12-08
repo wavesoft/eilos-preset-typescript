@@ -105,3 +105,4 @@ dist
 
 # OSX Traces
 .DS_Store
+.idea

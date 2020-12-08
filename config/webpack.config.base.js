@@ -75,12 +75,19 @@ module.exports = (ctx) => {
     module: {
       rules: [
         {
-          test: /\.react.svg$/,
-          use: ['@svgr/webpack'],
+          test: /\.react\.svg$/,
+          use: [
+            {
+              loader: "@svgr/webpack",
+              options: {
+                icon: true,
+              },
+            },
+          ],
         },
         {
           test: /\.(png|jpe?g|gif|svg)$/i,
-          exclude: /node_modules/,
+          exclude: /node_modules|\.react\.svg$/,
           use: [
             {
               loader: "file-loader",
