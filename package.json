@@ -1,6 +1,6 @@
 {
   "name": "eilos-preset-typescript",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Web App Build Abstraction",
   "main": "index.js",
   "scripts": {
