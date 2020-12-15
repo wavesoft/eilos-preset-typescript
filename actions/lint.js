@@ -1,5 +1,4 @@
 const configPrettier = require("../config/prettier.config");
-const logger = require("../../eilos/src/logger");
 
 module.exports = {
   files: {
@@ -47,11 +46,11 @@ module.exports = {
     let cfgFile;
     try {
       cfgFile = ctx.resolveFilePath(".prettierrc")
-      logger.debug("Prettier configuration from: " + cfgFile)
+      ctx.logger.debug("Prettier configuration from: " + cfgFile)
     }
     catch (e) {
       cfgFile = ctx.getConfigFilePath("prettier.config.json");
-      logger.debug("Prettier configuration from eilos: " + cfgFile)
+      ctx.logger.debug("Prettier configuration from eilos: " + cfgFile)
     }
 
     return ctx.exec(
