@@ -1,5 +1,6 @@
 const configJest = require("../config/jest.config");
 const configTs = require("../config/tsconfig");
+const tsTypings = require("../config/tstypings");
 
 module.exports = {
   files: {
@@ -15,6 +16,7 @@ module.exports = {
 
       return merge(configTs(ctx), userConfig);
     },
+    "@types/typings.d.ts": tsTypings,
   },
 
   run: (ctx) => {
