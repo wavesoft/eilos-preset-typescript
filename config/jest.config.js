@@ -4,7 +4,7 @@ module.exports = (ctx) => ({
   rootDir: ctx.getDirectory("project"),
   globals: {
     "ts-jest": {
-      tsConfig: ctx.getConfigFilePath("tsconfig.json"),
+      tsconfig: ctx.getConfigFilePath("tsconfig.json"),
     },
   },
 });
