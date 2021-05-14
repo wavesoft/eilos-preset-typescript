@@ -53,7 +53,7 @@ module.exports = (ctx) => {
   // limitation of the `ts-loader` plugin, since when we set `transpileOnly: true`
   // the generator won't emit type files.
   const tsLoaderOptions = {};
-  if (library == null) {
+  if (!library) {
     plugins.push(
       new ForkTsCheckerWebpackPlugin({
         typescript: {
@@ -65,6 +65,15 @@ module.exports = (ctx) => {
     Object.assign(tsLoaderOptions, {
       happyPackMode: true,
       transpileOnly: true,
+    });
+  }
+
+  // If we have external references, build the webpack configuration for them
+  const externalModules = ctx.getConfig("externals", []);
+  const externals = {};
+  if (externalModules && externalModules.length) {
+    externalModules.forEach((extern) => {
+      externals[extern] = `commonjs2 ${extern}`;
     });
   }
 
@@ -121,6 +130,7 @@ module.exports = (ctx) => {
       ],
     },
     plugins: plugins,
+    externals,
     resolve: {
       extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
     },
