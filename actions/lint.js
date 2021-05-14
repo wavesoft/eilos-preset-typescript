@@ -74,7 +74,7 @@ function runEslint(ctx) {
 
   eslintArgs.push(".");
 
-  ctx.exec("eslint", eslintArgs);
+  return ctx.exec("eslint", eslintArgs);
 }
 
 module.exports = {
@@ -98,18 +98,17 @@ module.exports = {
 
     if (argv[0] === "prettier") {
       argv.shift();
-      runPrettier(ctx, argv);
+      return runPrettier(ctx, argv);
     }
 
     if (argv[0] === "eslint") {
       argv.shift();
-      runEslint(ctx);
+      return runEslint(ctx);
     }
 
     if (argv[0] === "all") {
       argv.shift();
-      runPrettier(ctx, argv);
-      runEslint(ctx);
+      return runPrettier(ctx, argv).then(() => runEslint(ctx));
     }
   },
 };
