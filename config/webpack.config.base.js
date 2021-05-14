@@ -103,7 +103,7 @@ module.exports = (ctx) => {
           use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
         },
         {
-          test: /\.([tj]sx?|json)$/i,
+          test: /\.([tj]sx?)$/i,
           exclude: /node_modules/,
           use: [
             {
