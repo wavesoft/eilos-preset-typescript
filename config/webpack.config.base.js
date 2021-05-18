@@ -78,7 +78,13 @@ module.exports = (ctx) => {
   }
 
   // Additional modules to include
+  const ignoreExcludeRules = {};
   const srcModules = ctx.getConfig("sourceModules");
+  if (srcModules) {
+    if (Array.isArray(srcModules)) {
+      ignoreExcludeRules = { exclude: srcModules };
+    }
+  }
 
   return {
     entry: getEntryConfig(ctx),
@@ -116,8 +122,12 @@ module.exports = (ctx) => {
         },
         {
           test: /\.([tj]sx?)$/i,
-          exclude: /node_modules/,
-          include: srcModules,
+          exclude: [
+            {
+              test: /node_modules/,
+              ...ignoreExcludeRules
+            }
+          ],
           use: [
             {
               loader: "ts-loader",
