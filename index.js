@@ -61,6 +61,12 @@ module.exports = {
    */
   externals: [],
 
+  /**
+   * An array of `node_module` modules to include in the processing chain
+   * when resolving.
+   */
+  sourceModules: [],
+
   //////////////////////////////////////////////////////////////////////
   // Custom component configuration
   //////////////////////////////////////////////////////////////////////

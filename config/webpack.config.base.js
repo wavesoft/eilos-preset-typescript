@@ -77,6 +77,9 @@ module.exports = (ctx) => {
     });
   }
 
+  // Additional modules to include
+  const srcModules = ctx.getConfig("sourceModules");
+
   return {
     entry: getEntryConfig(ctx),
     context: ctx.getDirectory("project"),
@@ -114,6 +117,7 @@ module.exports = (ctx) => {
         {
           test: /\.([tj]sx?)$/i,
           exclude: /node_modules/,
+          include: srcModules,
           use: [
             {
               loader: "ts-loader",
