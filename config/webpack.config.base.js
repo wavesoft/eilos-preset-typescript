@@ -82,7 +82,7 @@ module.exports = (ctx) => {
   const srcModules = ctx.getConfig("sourceModules");
   if (srcModules) {
     if (Array.isArray(srcModules)) {
-      ignoreExcludeRules = { exclude: srcModules };
+      ignoreExcludeRules.exclude = srcModules;
     }
   }
 
