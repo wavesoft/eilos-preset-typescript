@@ -105,7 +105,7 @@ module.exports = (ctx) => {
         },
         {
           test: /\.(png|jpe?g|gif|svg)$/i,
-          exclude: /node_modules|\.react\.svg$/,
+          exclude: /\.react\.svg$/,
           use: [
             {
               loader: "file-loader",
