@@ -1,6 +1,6 @@
 module.exports = [
   'declare module "*.react.svg" {',
-  "  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>",
+  "  const content: React.FunctionComponent<React.SVGAttributes<SVGSVGElement>>",
   "  export default content;",
   "}",
   'declare module "*.png" {',
