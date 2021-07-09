@@ -15,6 +15,11 @@ module.exports = {
      * Enable hot module loading
      */
     hot: false,
+
+    /**
+     * Turn on to embed all assets
+     */
+    embedAssets: false,
   },
 
   //////////////////////////////////////////////////////////////////////

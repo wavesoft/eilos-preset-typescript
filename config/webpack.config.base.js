@@ -16,6 +16,7 @@ function getEntryConfig(ctx) {
 }
 
 module.exports = (ctx) => {
+  const options = ctx.getConfig("options");
   const plugins = [
     new MiniCssExtractPlugin({
       filename: "[name].css",
@@ -106,7 +107,14 @@ module.exports = (ctx) => {
         {
           test: /\.(png|jpe?g|gif|svg)$/i,
           exclude: /\.react\.svg$/,
-          use: [
+          use: options.embedAssets ? [
+            {
+              loader: "url-loader",
+              options: {
+                limit: Infinity
+              }
+            }
+          ] : [
             {
               loader: "file-loader",
             },
