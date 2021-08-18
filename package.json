@@ -1,8 +1,9 @@
 {
   "name": "eilos-preset-typescript",
-  "version": "1.0.0",
+  "version": "1.0.0-rc2",
   "description": "Web App Build Abstraction",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "NODE_ENV=development webpack",
@@ -17,6 +18,13 @@
     "typescript",
     "webpack",
     "jest"
+  ],
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.ts",
+    "bin/*",
+    "package.json",
+    "README.md"
   ],
   "author": "Ioannis Charalampidis <ioannis@charalampidis.me>",
   "license": "MIT",
