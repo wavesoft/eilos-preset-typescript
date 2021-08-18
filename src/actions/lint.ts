@@ -1,5 +1,8 @@
-const configPrettier = require("../config/prettier.config");
-const configEslint = require("../config/eslint.config");
+import { DefineAction } from "eilos";
+
+import { Options } from "../options";
+import configEslint from "../config/eslint.config";
+import configPrettier from "../config/prettier.config";
 
 function runPrettier(ctx, argv) {
   // Get file patterns to match from `options` or use the default pattern
@@ -77,7 +80,7 @@ function runEslint(ctx) {
   return ctx.exec("eslint", eslintArgs);
 }
 
-module.exports = {
+const Action = DefineAction(Options, {
   files: {
     "eslint.config.json": (ctx) => {
       const { merge } = ctx.util;
@@ -111,4 +114,6 @@ module.exports = {
       return runPrettier(ctx, argv).then(() => runEslint(ctx));
     }
   },
-};
+});
+
+export default Action;

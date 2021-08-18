@@ -1,18 +1,20 @@
-const configWebpackBase = require("../config/webpack.config.base");
-const configWebpackHot = require("../config/webpack.config.hot");
-const configTs = require("../config/tsconfig");
-const tsTypings = require("../config/tstypings");
+import { DefineAction } from "eilos";
 
-module.exports = {
+import configWebpackBase from "../config/webpack.config.base";
+import configWebpackHot from "../config/webpack.config.hot";
+import configTs from "../config/tsconfig";
+import tsTypings from "../config/tstypings";
+import { Options } from "../options";
+
+const Action = DefineAction(Options, {
   files: {
     "webpack.config.js": (ctx) => {
       const { merge } = ctx.util;
-      const options = ctx.getConfig("options");
       const userConfig = ctx.getConfig("webpack", {});
 
       // Enable hot module replacement if requested
       let config = configWebpackBase(ctx);
-      if (options.hot) {
+      if (ctx.getConfig("hot")) {
         config = merge(config, configWebpackHot(ctx));
       }
 
@@ -36,4 +38,6 @@ module.exports = {
       [].concat(["--config", cfgFile], argv)
     );
   },
-};
+});
+
+export default Action;

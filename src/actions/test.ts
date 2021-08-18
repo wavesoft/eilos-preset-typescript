@@ -1,8 +1,11 @@
-const configJest = require("../config/jest.config");
-const configTs = require("../config/tsconfig");
-const tsTypings = require("../config/tstypings");
+import { DefineAction } from "eilos";
 
-module.exports = {
+import { Options } from "../options";
+import configJest from "../config/jest.config";
+import configTs from "../config/tsconfig";
+import tsTypings from "../config/tstypings";
+
+const Action = DefineAction(Options, {
   files: {
     "jest.config.js": (ctx) => {
       const { merge } = ctx.util;
@@ -25,4 +28,6 @@ module.exports = {
 
     return ctx.exec("jest", [].concat(["--config=" + cfgFile], argv));
   },
-};
+});
+
+export default Action;

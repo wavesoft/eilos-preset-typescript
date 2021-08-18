@@ -1,6 +1,7 @@
-const path = require("path");
+import path from "path";
+import type { ConfigFileContents, RuntimeContext } from "eilos";
 
-module.exports = (ctx) => {
+export default function (ctx: RuntimeContext): ConfigFileContents {
   // Find the base dir from the entry point(s)
   const entryPoint = ctx.getConfig("entry");
   let includeDirs;
@@ -23,7 +24,6 @@ module.exports = (ctx) => {
       importsNotUsedAsValues: "preserve",
       jsx: "react",
       lib: ["dom", "es2018"],
-      declaration: true,
       declarationDir: ctx.getDirectory("dist"),
       module: "es6",
       moduleResolution: "node",
@@ -39,4 +39,4 @@ module.exports = (ctx) => {
     ],
     exclude: ["node_modules", "**/*.spec.ts"],
   };
-};
+}

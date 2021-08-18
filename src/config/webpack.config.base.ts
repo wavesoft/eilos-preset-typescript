@@ -1,8 +1,8 @@
-const fs = require("fs");
-const path = require("path");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+import CopyWebpackPlugin from "copy-webpack-plugin";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import fs from "fs";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import type { ConfigFileContents, RuntimeContext } from "eilos";
 
 function getEntryConfig(ctx) {
   const entry = ctx.getConfig("entry");
@@ -15,7 +15,7 @@ function getEntryConfig(ctx) {
   return entry;
 }
 
-module.exports = (ctx) => {
+export default function (ctx: RuntimeContext): ConfigFileContents {
   const options = ctx.getConfig("options");
   const plugins = [
     new MiniCssExtractPlugin({
@@ -107,18 +107,20 @@ module.exports = (ctx) => {
         {
           test: /\.(png|jpe?g|gif|svg)$/i,
           exclude: /\.react\.svg$/,
-          use: options.embedAssets ? [
-            {
-              loader: "url-loader",
-              options: {
-                limit: Infinity
-              }
-            }
-          ] : [
-            {
-              loader: "file-loader",
-            },
-          ],
+          use: options.embedAssets
+            ? [
+                {
+                  loader: "url-loader",
+                  options: {
+                    limit: Infinity,
+                  },
+                },
+              ]
+            : [
+                {
+                  loader: "file-loader",
+                },
+              ],
         },
         {
           test: /\.css$/i,
@@ -133,8 +135,8 @@ module.exports = (ctx) => {
           exclude: [
             {
               test: /node_modules/,
-              ...ignoreExcludeRules
-            }
+              ...ignoreExcludeRules,
+            },
           ],
           use: [
             {
@@ -168,4 +170,4 @@ module.exports = (ctx) => {
       contentBase: ctx.getDirectory("static"),
     },
   };
-};
+}
