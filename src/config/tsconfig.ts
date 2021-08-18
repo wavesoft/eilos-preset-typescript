@@ -1,10 +1,11 @@
 import path from "path";
-import type { ConfigFileContents, RuntimeContext } from "eilos";
+import type { ConfigFileContents } from "eilos";
+import type { PresetRuntimeContext } from "../options";
 
-export default function (ctx: RuntimeContext): ConfigFileContents {
+export default function (ctx: PresetRuntimeContext): ConfigFileContents {
   // Find the base dir from the entry point(s)
-  const entryPoint = ctx.getConfig("entry");
-  let includeDirs;
+  const entryPoint = ctx.getConfig("entry", "./src/index.ts");
+  let includeDirs: string[];
   if (typeof entryPoint !== "string") {
     includeDirs = Object.keys(entryPoint).map((key) => {
       return path.dirname(entryPoint[key]) + "/**/*";
@@ -34,7 +35,7 @@ export default function (ctx: RuntimeContext): ConfigFileContents {
       target: "es6",
     },
     include: [
-      ...new Set(includeDirs),
+      ...Array.from(new Set(includeDirs)),
       path.join(ctx.getConfigFilePath("@types"), "*"),
     ],
     exclude: ["node_modules", "**/*.spec.ts"],

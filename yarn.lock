@@ -2747,6 +2747,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/copy-webpack-plugin@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "@types/copy-webpack-plugin@npm:8.0.1"
+  dependencies:
+    "@types/node": "*"
+    tapable: ^2.0.0
+    webpack: ^5.1.0
+  checksum: e921a28fca72bf1708d51ffad06ee2a4b80b8de7e748639588681ea1912413b92dbd433627f3b7eb51c14b9254a1d9c13cf037f25ca08a718df005871454a696
+  languageName: node
+  linkType: hard
+
 "@types/eslint-scope@npm:^3.7.0":
   version: 3.7.1
   resolution: "@types/eslint-scope@npm:3.7.1"
@@ -2839,6 +2850,17 @@ __metadata:
   version: 7.0.7
   resolution: "@types/json-schema@npm:7.0.7"
   checksum: ea3b409235862d28122751158f4054e729e31ad844bd7b8b23868f38c518047b1c0e8e4e7cc293e02c31a2fb8cfc8a4506c2de2a745cf78b218e064fb8898cd4
+  languageName: node
+  linkType: hard
+
+"@types/mini-css-extract-plugin@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@types/mini-css-extract-plugin@npm:2.2.0"
+  dependencies:
+    "@types/node": "*"
+    tapable: ^2.2.0
+    webpack: ^5
+  checksum: 865bca4834ed9330d250c92a9810747c14b48f0b1510ebfd3f78b1593e96b162e6c020dd43666230684c70d1be1946fad012e1470ffcc52d612bd55ae97efd70
   languageName: node
   linkType: hard
 
@@ -5142,7 +5164,9 @@ __metadata:
     "@babel/core": ^7.10.2
     "@babel/preset-env": ^7.10.2
     "@svgr/webpack": ^5.5.0
+    "@types/copy-webpack-plugin": ^8.0.1
     "@types/jest": ^26.0.0
+    "@types/mini-css-extract-plugin": ^2.2.0
     "@types/react": ^16.9.36
     "@types/react-dom": ^16.9.8
     "@typescript-eslint/eslint-plugin": ^4.22.0
@@ -11129,7 +11153,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"tapable@npm:^2.1.1, tapable@npm:^2.2.0":
+"tapable@npm:^2.0.0, tapable@npm:^2.1.1, tapable@npm:^2.2.0":
   version: 2.2.0
   resolution: "tapable@npm:2.2.0"
   checksum: 5a7e31ddd2400d524b68e7ba0373e492ba52b321b8e1eb15b65956e9c1b9ba90dd175210a1318b6752538cbe3b284f4a7218a714be942aeeb812623c243aea25
@@ -11956,7 +11980,7 @@ typescript@^4.3.5:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.50.0":
+"webpack@npm:^5, webpack@npm:^5.1.0, webpack@npm:^5.50.0":
   version: 5.50.0
   resolution: "webpack@npm:5.50.0"
   dependencies:

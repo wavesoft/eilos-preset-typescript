@@ -1,10 +1,12 @@
+import fs from "fs";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
-import fs from "fs";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import type { ConfigFileContents, RuntimeContext } from "eilos";
+import type { ConfigFileContents } from "eilos";
 
-function getEntryConfig(ctx) {
+import type { PresetRuntimeContext } from "../options";
+
+function getEntryConfig(ctx: PresetRuntimeContext) {
   const entry = ctx.getConfig("entry");
   if (typeof entry === "string") {
     return {
@@ -15,8 +17,7 @@ function getEntryConfig(ctx) {
   return entry;
 }
 
-export default function (ctx: RuntimeContext): ConfigFileContents {
-  const options = ctx.getConfig("options");
+export default function (ctx: PresetRuntimeContext): ConfigFileContents {
   const plugins = [
     new MiniCssExtractPlugin({
       filename: "[name].css",
@@ -25,7 +26,7 @@ export default function (ctx: RuntimeContext): ConfigFileContents {
   ];
 
   // Load copy plug-in if we have a static directory
-  const staticDir = ctx.getConfig("static", "./static");
+  const staticDir = ctx.getConfig("staticDir", "./static");
   if (fs.existsSync(staticDir)) {
     plugins.push(
       new CopyWebpackPlugin({
@@ -35,8 +36,8 @@ export default function (ctx: RuntimeContext): ConfigFileContents {
   }
 
   // Check if we are building a library
-  const library = ctx.getConfig("library", null);
-  const libraryOutput = {};
+  const library = ctx.getConfig("library", false);
+  const libraryOutput = {} as any;
   if (library != null) {
     libraryOutput.libraryTarget = "umd";
 
@@ -71,7 +72,7 @@ export default function (ctx: RuntimeContext): ConfigFileContents {
 
   // If we have external references, build the webpack configuration for them
   const externalModules = ctx.getConfig("externals", []);
-  const externals = {};
+  const externals = {} as any;
   if (externalModules && externalModules.length) {
     externalModules.forEach((extern) => {
       externals[extern] = `commonjs2 ${extern}`;
@@ -79,8 +80,8 @@ export default function (ctx: RuntimeContext): ConfigFileContents {
   }
 
   // Additional modules to include
-  const ignoreExcludeRules = {};
   const srcModules = ctx.getConfig("sourceModules");
+  const ignoreExcludeRules = {} as any;
   if (srcModules) {
     if (Array.isArray(srcModules)) {
       ignoreExcludeRules.exclude = srcModules;
@@ -107,7 +108,7 @@ export default function (ctx: RuntimeContext): ConfigFileContents {
         {
           test: /\.(png|jpe?g|gif|svg)$/i,
           exclude: /\.react\.svg$/,
-          use: options.embedAssets
+          use: ctx.getConfig("embedAssets")
             ? [
                 {
                   loader: "url-loader",

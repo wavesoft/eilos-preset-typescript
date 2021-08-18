@@ -3,16 +3,15 @@ import { DefineAction } from "eilos";
 import { Options } from "../options";
 import configEslint from "../config/eslint.config";
 import configPrettier from "../config/prettier.config";
+import type { PresetRuntimeContext } from "../options";
 
-function runPrettier(ctx, argv) {
+function runPrettier(ctx: PresetRuntimeContext, argv: string[]) {
   // Get file patterns to match from `options` or use the default pattern
-  let prettier_file_patterns;
-  const options = ctx.getConfig("options");
-  if (options.prettier_file_patterns && options.prettier_file_patterns.length) {
-    prettier_file_patterns = options.prettier_file_patterns;
-  } else {
-    prettier_file_patterns = ["src/**/*.js", "src/**/*.ts", "**/*.md"];
-  }
+  const prettier_file_patterns = ctx.getConfig("prettierFilePatterns", [
+    "src/**/*.js",
+    "src/**/*.ts",
+    "**/*.md",
+  ]);
 
   // Determine the prettier action that we want to take. It can either be `check` or `write`. We default to
   // `--check`
@@ -27,8 +26,7 @@ function runPrettier(ctx, argv) {
 
   // Make sure there aren't any options that we are ignoring or that we don't know about
   if (argv.length) {
-    ctx.logger.error("Unknown option: " + argv);
-    return;
+    throw new TypeError(`Unknown prettier option: ${argv}`);
   }
 
   // Search the directory tree for .prettierrc and use the one provided by eilos if we can't find it
@@ -43,14 +41,14 @@ function runPrettier(ctx, argv) {
 
   return ctx.exec(
     "prettier",
-    [].concat(
+    ([] as string[]).concat(
       [prettier_action, "--config", cfgFile, prettier_file_patterns].flat(),
       argv
     )
   );
 }
 
-function runEslint(ctx) {
+function runEslint(ctx: PresetRuntimeContext) {
   // Make sure there aren't any options that we are ignoring or that we don't know about
 
   // Search the directory tree for .prettierrc and use the one provided by eilos if we can't find it
@@ -96,7 +94,7 @@ const Action = DefineAction(Options, {
     },
   },
 
-  run: (ctx) => {
+  run: async (ctx) => {
     let argv = ctx.getConfig("argv", []);
 
     if (argv[0] === "prettier") {

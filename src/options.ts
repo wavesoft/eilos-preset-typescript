@@ -1,4 +1,8 @@
-import { DefinePresetOptions } from "eilos";
+import {
+  DefinePresetOptions,
+  PresetRuntimeConfig,
+  RuntimeContext,
+} from "eilos";
 
 /**
  * User-configurable options for this preset
@@ -28,7 +32,7 @@ export const Options = DefinePresetOptions({
         type: "string",
       },
       {
-        elements: {
+        values: {
           type: "string",
         },
       },
@@ -66,12 +70,23 @@ export const Options = DefinePresetOptions({
     },
   },
 
+  staticDir: {
+    defaultValue: "./static",
+    description:
+      "Specifies the static directory that -if exists- will be copied to the build directory",
+    schema: {
+      type: "string",
+    },
+  },
+
   externals: {
     defaultValue: [],
     description:
       "Indicates the resources that are external to the project and must be referred to using UMD",
     schema: {
-      type: "string",
+      elements: {
+        type: "string",
+      },
     },
   },
 
@@ -81,7 +96,19 @@ export const Options = DefinePresetOptions({
       "An array of packages from 'node_module' modules to include in the processing chain when resolving. " +
       "This is useful when sourcing a typescript source package that must be pre-processed.",
     schema: {
-      type: "string",
+      elements: {
+        type: "string",
+      },
+    },
+  },
+
+  prettierFilePatterns: {
+    defaultValue: ["src/**/*.js", "src/**/*.ts", "**/*.md"],
+    description: "An array of file patterns to consider for the linting phase.",
+    schema: {
+      elements: {
+        type: "string",
+      },
     },
   },
 
@@ -139,3 +166,7 @@ export const Options = DefinePresetOptions({
     },
   },
 });
+
+export type PresetRuntimeContext = RuntimeContext<
+  PresetRuntimeConfig<typeof Options>
+>;

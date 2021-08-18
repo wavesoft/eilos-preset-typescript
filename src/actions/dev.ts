@@ -35,7 +35,7 @@ const Action = DefineAction(Options, {
 
     return ctx.exec(
       "webpack-dev-server",
-      [].concat(["--config", cfgFile], argv)
+      ([] as string[]).concat(["--config", cfgFile], argv)
     );
   },
 });

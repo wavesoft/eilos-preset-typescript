@@ -1,7 +1,9 @@
-import type { ConfigFileContents, RuntimeContext } from "eilos";
 import webpack from "webpack";
 
-export default function (ctx: RuntimeContext): ConfigFileContents {
+import type { ConfigFileContents } from "eilos";
+import type { PresetRuntimeContext } from "../options";
+
+export default function (ctx: PresetRuntimeContext): ConfigFileContents {
   return {
     plugins: [new webpack.HotModuleReplacementPlugin()],
     devServer: {

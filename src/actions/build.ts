@@ -33,7 +33,7 @@ const Action = DefineAction(Options, {
     const cfgFile = ctx.getConfigFilePath("webpack.config.js");
     const argv = ctx.getConfig("argv", []);
 
-    return ctx.exec("webpack", [].concat(["--config", cfgFile], argv));
+    return ctx.exec("webpack", ([] as string[]).concat(["--config", cfgFile], argv));
   },
 });
 

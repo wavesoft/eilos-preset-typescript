@@ -1,5 +1,6 @@
-import type { ConfigFileContents, RuntimeContext } from "eilos";
+import type { ConfigFileContents } from "eilos";
+import type { PresetRuntimeContext } from "../options";
 
-export default function (ctx: RuntimeContext): ConfigFileContents {
+export default function (ctx: PresetRuntimeContext): ConfigFileContents {
   return {};
 }

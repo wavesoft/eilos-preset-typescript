@@ -26,7 +26,10 @@ const Action = DefineAction(Options, {
     const cfgFile = ctx.getConfigFilePath("jest.config.js");
     const argv = ctx.getConfig("argv", []);
 
-    return ctx.exec("jest", [].concat(["--config=" + cfgFile], argv));
+    return ctx.exec(
+      "jest",
+      ([] as string[]).concat(["--config=" + cfgFile], argv)
+    );
   },
 });
 

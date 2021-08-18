@@ -4,7 +4,9 @@
   "description": "Web App Build Abstraction",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=development webpack",
+    "prepack": "NODE_ENV=production webpack"
   },
   "publishConfig": {
     "access": "public"
@@ -52,6 +54,8 @@
     "webpack-dev-server": "^3.11.0"
   },
   "devDependencies": {
+    "@types/copy-webpack-plugin": "^8.0.1",
+    "@types/mini-css-extract-plugin": "^2.2.0",
     "ajv": "^8.6.2",
     "eilos": "^1.0.0-rc9",
     "ts-loader": "^9.2.5",
