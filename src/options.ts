@@ -115,7 +115,6 @@ export const Options = DefinePresetOptions({
   // Deprecated parameters
   //////////////////////////////////////
   webpack: {
-    defaultValue: {},
     deprecated:
       "You should never override this configuration, instead you should create a custom preset for your needs",
     description: "Arbitrary configuration to forward to webpack as-is",
@@ -125,7 +124,6 @@ export const Options = DefinePresetOptions({
     },
   },
   tsconfig: {
-    defaultValue: {},
     deprecated:
       "You should never override this configuration, instead you should create a custom preset for your needs",
     description: "Arbitrary configuration to forward to typescript as-is",
@@ -135,7 +133,6 @@ export const Options = DefinePresetOptions({
     },
   },
   jest: {
-    defaultValue: {},
     deprecated:
       "You should never override this configuration, instead you should create a custom preset for your needs",
     description: "Arbitrary configuration to forward to jest as-is",
@@ -145,7 +142,6 @@ export const Options = DefinePresetOptions({
     },
   },
   eslint: {
-    defaultValue: {},
     deprecated:
       "You should never override this configuration, instead you should create a custom preset for your needs",
     description: "Arbitrary configuration to forward to eslint as-is",
@@ -155,7 +151,6 @@ export const Options = DefinePresetOptions({
     },
   },
   prettier: {
-    defaultValue: {},
     deprecated:
       "You should never override this configuration, instead you should create a custom preset for your needs",
     description: "Arbitrary configuration to forward to prettier as-is",
