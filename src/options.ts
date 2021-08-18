@@ -49,7 +49,6 @@ export const Options = DefinePresetOptions({
       },
       {
         type: "boolean",
-        enum: [false],
       },
     ],
   },
