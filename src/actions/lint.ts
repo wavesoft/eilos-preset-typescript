@@ -1,9 +1,7 @@
 import { DefineAction } from "eilos";
 
-import { Options } from "../options";
-import configEslint from "../config/eslint.config";
-import configPrettier from "../config/prettier.config";
-import type { PresetRuntimeContext } from "../options";
+import { Config } from "../config";
+import type { PresetRuntimeContext } from "../config";
 
 function runPrettier(ctx: PresetRuntimeContext, argv: string[]) {
   // Get file patterns to match from `options` or use the default pattern
@@ -78,38 +76,24 @@ function runEslint(ctx: PresetRuntimeContext) {
   return ctx.exec("eslint", eslintArgs);
 }
 
-const Action = DefineAction(Options, {
-  files: {
-    "eslint.config.json": (ctx) => {
-      const { merge } = ctx.util;
-      const userConfig = ctx.getConfig("eslint", {});
-
-      return merge(configEslint(ctx), userConfig);
-    },
-    "prettier.config.json": (ctx) => {
-      const { merge } = ctx.util;
-      const userConfig = ctx.getConfig("prettier", {});
-
-      return merge(configPrettier(ctx), userConfig);
-    },
-  },
-
+const Action = DefineAction(Config, {
+  useFiles: ["eslint.config.json", "prettier.config.json"],
   run: async (ctx) => {
     let argv = ctx.getConfig("argv", []);
 
     if (argv[0] === "prettier") {
       argv.shift();
-      return runPrettier(ctx, argv);
+      await runPrettier(ctx, argv);
     }
 
     if (argv[0] === "eslint") {
       argv.shift();
-      return runEslint(ctx);
+      await runEslint(ctx);
     }
 
     if (argv[0] === "all") {
       argv.shift();
-      return runPrettier(ctx, argv).then(() => runEslint(ctx));
+      await runPrettier(ctx, argv).then(() => runEslint(ctx));
     }
   },
 });

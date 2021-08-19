@@ -1,8 +1,4 @@
-import {
-  DefinePresetOptions,
-  PresetRuntimeConfig,
-  RuntimeContext,
-} from "eilos";
+import { DefinePresetOptions, PresetOptionsRuntimeContext } from "eilos";
 
 /**
  * User-configurable options for this preset
@@ -161,6 +157,4 @@ export const Options = DefinePresetOptions({
   },
 });
 
-export type PresetRuntimeContext = RuntimeContext<
-  PresetRuntimeConfig<typeof Options>
->;
+export type GlobalRuntimeContext = PresetOptionsRuntimeContext<typeof Options>;

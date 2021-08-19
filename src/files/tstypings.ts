@@ -1,8 +1,10 @@
-import type { ConfigFileContents } from "eilos";
-import type { PresetRuntimeContext } from "../options";
+import { DefinePresetFile } from "eilos";
 
-export default function (ctx: PresetRuntimeContext): ConfigFileContents {
-  return [
+import { Options } from "../options";
+
+const file = DefinePresetFile(Options, {
+  mimeType: "text/plain",
+  contents: [
     'declare module "*.react.svg" {',
     "  const content: React.FunctionComponent<React.SVGAttributes<SVGSVGElement>>",
     "  export default content;",
@@ -23,5 +25,7 @@ export default function (ctx: PresetRuntimeContext): ConfigFileContents {
     "  const content: any;",
     "  export default content;",
     "}",
-  ].join("\n");
-}
+  ].join("\n"),
+});
+
+export default file;

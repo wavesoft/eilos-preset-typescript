@@ -3,10 +3,9 @@ import CopyWebpackPlugin from "copy-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import type { ConfigFileContents } from "eilos";
+import type { GlobalRuntimeContext } from "../options";
 
-import type { PresetRuntimeContext } from "../options";
-
-function getEntryConfig(ctx: PresetRuntimeContext) {
+function getEntryConfig(ctx: GlobalRuntimeContext) {
   const entry = ctx.getConfig("entry");
   if (typeof entry === "string") {
     return {
@@ -17,7 +16,7 @@ function getEntryConfig(ctx: PresetRuntimeContext) {
   return entry;
 }
 
-export default function (ctx: PresetRuntimeContext): ConfigFileContents {
+export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
   const plugins = [
     new MiniCssExtractPlugin({
       filename: "[name].css",

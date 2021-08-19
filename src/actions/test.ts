@@ -1,27 +1,9 @@
 import { DefineAction } from "eilos";
 
-import { Options } from "../options";
-import configJest from "../config/jest.config";
-import configTs from "../config/tsconfig";
-import tsTypings from "../config/tstypings";
+import { Config } from "../config";
 
-const Action = DefineAction(Options, {
-  files: {
-    "jest.config.js": (ctx) => {
-      const { merge } = ctx.util;
-      const userConfig = ctx.getConfig("jest", {});
-
-      return merge(configJest(ctx), userConfig);
-    },
-    "tsconfig.json": (ctx) => {
-      const { merge } = ctx.util;
-      const userConfig = ctx.getConfig("tsconfig", {});
-
-      return merge(configTs(ctx), userConfig);
-    },
-    "@types/typings.d.ts": tsTypings,
-  },
-
+const Action = DefineAction(Config, {
+  useFiles: ["jest.config.js", "tsconfig.json", "@types/typings.d.ts"],
   run: (ctx) => {
     const cfgFile = ctx.getConfigFilePath("jest.config.js");
     const argv = ctx.getConfig("argv", []);

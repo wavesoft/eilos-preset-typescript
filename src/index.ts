@@ -1,5 +1,5 @@
 import { DefinePreset } from "eilos";
-import { Options } from "./options";
+import { Config } from "./config";
 
 import buildAction from "./actions/build";
 import devAction from "./actions/dev";
@@ -10,7 +10,8 @@ import testAction from "./actions/test";
  * Eilos preset configuration
  */
 const Preset = DefinePreset({
-  options: Options,
+  engineVersion: "",
+  config: Config,
   actions: {
     build: buildAction,
     dev: devAction,
@@ -20,5 +21,5 @@ const Preset = DefinePreset({
 });
 
 // Export preset and options (the options allow chaining)
-export { Options } from "./options";
+export { Config } from "./config";
 export default Preset;
