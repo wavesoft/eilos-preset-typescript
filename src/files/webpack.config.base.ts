@@ -25,7 +25,7 @@ export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
   ];
 
   // Load copy plug-in if we have a static directory
-  const staticDir = ctx.getConfig("staticDir", "./static");
+  const staticDir = ctx.getConfig("staticSrcDir", "./static");
   if (fs.existsSync(staticDir)) {
     plugins.push(
       new CopyWebpackPlugin({

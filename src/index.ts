@@ -1,4 +1,4 @@
-import { DefinePreset } from "eilos";
+import { DefinePreset, PresetUserConfig } from "eilos";
 import { Config } from "./config";
 
 import buildAction from "./actions/build";
@@ -20,6 +20,8 @@ const Preset = DefinePreset({
   },
 });
 
+
 // Export preset and options (the options allow chaining)
 export { Config } from "./config";
+export type UserConfig = PresetUserConfig<typeof Config>
 export default Preset;

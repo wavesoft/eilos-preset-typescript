@@ -5,11 +5,7 @@ import type { PresetRuntimeContext } from "../config";
 
 function runPrettier(ctx: PresetRuntimeContext, argv: string[]) {
   // Get file patterns to match from `options` or use the default pattern
-  const prettier_file_patterns = ctx.getConfig("prettierFilePatterns", [
-    "src/**/*.js",
-    "src/**/*.ts",
-    "**/*.md",
-  ]);
+  const prettier_file_patterns = ctx.getConfig("prettierFilePatterns");
 
   // Determine the prettier action that we want to take. It can either be `check` or `write`. We default to
   // `--check`

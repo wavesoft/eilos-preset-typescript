@@ -65,7 +65,7 @@ export const Options = DefinePresetOptions({
     },
   },
 
-  staticDir: {
+  staticSrcDir: {
     defaultValue: "./static",
     description:
       "Specifies the static directory that -if exists- will be copied to the build directory",
@@ -77,7 +77,8 @@ export const Options = DefinePresetOptions({
   externals: {
     defaultValue: [],
     description:
-      "Indicates the resources that are external to the project and must be referred to using UMD",
+      "An array of packages from the 'node_modules' directory to include as an external dependency" +
+      " instead of bundling the resource into the generated bundle.",
     schema: {
       elements: {
         type: "string",
