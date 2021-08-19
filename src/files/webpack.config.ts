@@ -5,6 +5,7 @@ import configWebpackBase from "./webpack.config.base";
 import configWebpackHot from "./webpack.config.hot";
 
 const file = DefinePresetFile(Options, {
+  mimeType: "application/javascript",
   generator: (ctx) => {
     const { merge } = ctx.util;
     const userConfig = ctx.getConfig("webpack", {});
