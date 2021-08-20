@@ -10,7 +10,7 @@ import testAction from "./actions/test";
  * Eilos preset configuration
  */
 const Preset = DefinePreset({
-  engineVersion: "",
+  engineVersion: "1.x",
   config: Config,
   actions: {
     build: buildAction,
