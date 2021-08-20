@@ -132,12 +132,11 @@ export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
         },
         {
           test: /\.([tj]sx?)$/i,
-          exclude: [
-            {
-              test: /node_modules/,
-              ...ignoreExcludeRules,
-            },
-          ],
+          exclude: {
+            and: ([/node_modules/] as any[]).concat(
+              ignoreExcludeRules.length ? [{ not: ignoreExcludeRules }] : []
+            ),
+          },
           use: [
             {
               loader: "ts-loader",
