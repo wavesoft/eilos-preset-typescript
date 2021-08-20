@@ -166,7 +166,9 @@ export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
       libraryOutput
     ),
     devServer: {
-      contentBase: ctx.getDirectory("static"),
+      static: {
+        directory: ctx.getDirectory("static"),
+      },
     },
   };
 }
