@@ -6,7 +6,7 @@ const file = DefinePresetFile(Options, {
   mimeType: "application/javascript",
   generator: (ctx) => {
     const { merge } = ctx.util;
-    const userConfig = ctx.getConfig("jest", {});
+    const userConfig = ctx.getOption("jest", {});
 
     // Base 'jest.config.js' contents
     const BaseConfig = {

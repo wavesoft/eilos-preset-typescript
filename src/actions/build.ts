@@ -6,7 +6,7 @@ const Action = DefineAction(Config, {
   useFiles: ["webpack.config.js", "tsconfig.json", "@types/typings.d.ts"],
   run: (ctx) => {
     const cfgFile = ctx.getConfigFilePath("webpack.config.js");
-    const argv = ctx.getConfig("argv", []);
+    const argv = ctx.getOption("argv", []);
 
     return ctx.exec(
       "webpack",

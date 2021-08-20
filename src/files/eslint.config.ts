@@ -6,7 +6,7 @@ const file = DefinePresetFile(Options, {
   mimeType: "application/json",
   generator: (ctx) => {
     const { merge } = ctx.util;
-    const userConfig = ctx.getConfig("eslint", {});
+    const userConfig = ctx.getOption("eslint", {});
 
     // Base 'eslint.config.json' contents
     const BaseConfig = {};

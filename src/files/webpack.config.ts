@@ -8,11 +8,11 @@ const file = DefinePresetFile(Options, {
   mimeType: "application/javascript",
   generator: (ctx) => {
     const { merge } = ctx.util;
-    const userConfig = ctx.getConfig("webpack", {});
+    const userConfig = ctx.getOption("webpack", {});
 
     // Enable hot module replacement if requested
     let config = configWebpackBase(ctx);
-    if (ctx.getConfig("hot")) {
+    if (ctx.getOption("hot")) {
       config = merge(config, configWebpackHot(ctx));
     }
 

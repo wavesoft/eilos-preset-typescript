@@ -6,7 +6,7 @@ import type { ConfigFileContents } from "eilos";
 import type { GlobalRuntimeContext } from "../options";
 
 function getEntryConfig(ctx: GlobalRuntimeContext) {
-  const entry = ctx.getConfig("entry");
+  const entry = ctx.getOption("entry");
   if (typeof entry === "string") {
     return {
       index: entry,
@@ -25,7 +25,7 @@ export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
   ];
 
   // Load copy plug-in if we have a static directory
-  const staticDir = ctx.getConfig("staticSrcDir", "./static");
+  const staticDir = ctx.getOption("staticSrcDir", "./static");
   if (fs.existsSync(staticDir)) {
     plugins.push(
       new CopyWebpackPlugin({
@@ -35,7 +35,7 @@ export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
   }
 
   // Check if we are building a library
-  const library = ctx.getConfig("library", false);
+  const library = ctx.getOption("library", false);
   const libraryOutput = {} as any;
   if (library != null) {
     libraryOutput.libraryTarget = "umd";
@@ -70,7 +70,7 @@ export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
   }
 
   // If we have external references, build the webpack configuration for them
-  const externalModules = ctx.getConfig("externals", []);
+  const externalModules = ctx.getOption("externals", []);
   const externals = {} as any;
   if (externalModules && externalModules.length) {
     externalModules.forEach((extern) => {
@@ -79,7 +79,7 @@ export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
   }
 
   // Additional modules to include
-  const srcModules = ctx.getConfig("sourceModules");
+  const srcModules = ctx.getOption("sourceModules");
   const ignoreExcludeRules = {} as any;
   if (srcModules) {
     if (Array.isArray(srcModules)) {
@@ -107,7 +107,7 @@ export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
         {
           test: /\.(png|jpe?g|gif|svg)$/i,
           exclude: /\.react\.svg$/,
-          use: ctx.getConfig("embedAssets")
+          use: ctx.getOption("embedAssets")
             ? [
                 {
                   loader: "url-loader",

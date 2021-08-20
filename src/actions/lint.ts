@@ -5,7 +5,7 @@ import type { PresetRuntimeContext } from "../config";
 
 function runPrettier(ctx: PresetRuntimeContext, argv: string[]) {
   // Get file patterns to match from `options` or use the default pattern
-  const prettier_file_patterns = ctx.getConfig("prettierFilePatterns");
+  const prettier_file_patterns = ctx.getOption("prettierFilePatterns");
 
   // Determine the prettier action that we want to take. It can either be `check` or `write`. We default to
   // `--check`
@@ -75,7 +75,7 @@ function runEslint(ctx: PresetRuntimeContext) {
 const Action = DefineAction(Config, {
   useFiles: ["eslint.config.json", "prettier.config.json"],
   run: async (ctx) => {
-    let argv = ctx.getConfig("argv", []);
+    let argv = ctx.getOption("argv", []);
 
     if (argv[0] === "prettier") {
       argv.shift();

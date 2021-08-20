@@ -6,7 +6,7 @@ const file = DefinePresetFile(Options, {
   mimeType: "application/javascript",
   generator: (ctx) => {
     const { merge } = ctx.util;
-    const userConfig = ctx.getConfig("prettier", {});
+    const userConfig = ctx.getOption("prettier", {});
 
     // Base 'prettier.config.js' contents
     const BaseConfig = {

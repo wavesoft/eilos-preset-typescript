@@ -7,10 +7,10 @@ const file = DefinePresetFile(Options, {
   mimeType: "application/json",
   generator: (ctx) => {
     const { merge } = ctx.util;
-    const userConfig = ctx.getConfig("tsconfig", {});
+    const userConfig = ctx.getOption("tsconfig", {});
 
     // Find the base dir from the entry point(s)
-    const entryPoint = ctx.getConfig("entry");
+    const entryPoint = ctx.getOption("entry");
     let includeDirs: string[];
     if (typeof entryPoint !== "string") {
       includeDirs = Object.keys(entryPoint).map((key) => {
