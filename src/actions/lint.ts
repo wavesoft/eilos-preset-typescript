@@ -1,15 +1,11 @@
-const configPrettier = require("../config/prettier.config");
-const configEslint = require("../config/eslint.config");
+import { DefineAction } from "eilos";
 
-function runPrettier(ctx, argv) {
+import { Config } from "../config";
+import type { PresetRuntimeContext } from "../config";
+
+function runPrettier(ctx: PresetRuntimeContext, argv: string[]) {
   // Get file patterns to match from `options` or use the default pattern
-  let prettier_file_patterns;
-  const options = ctx.getConfig("options");
-  if (options.prettier_file_patterns && options.prettier_file_patterns.length) {
-    prettier_file_patterns = options.prettier_file_patterns;
-  } else {
-    prettier_file_patterns = ["src/**/*.js", "src/**/*.ts", "**/*.md"];
-  }
+  const prettier_file_patterns = ctx.getOption("prettierFilePatterns");
 
   // Determine the prettier action that we want to take. It can either be `check` or `write`. We default to
   // `--check`
@@ -24,8 +20,7 @@ function runPrettier(ctx, argv) {
 
   // Make sure there aren't any options that we are ignoring or that we don't know about
   if (argv.length) {
-    ctx.logger.error("Unknown option: " + argv);
-    return;
+    throw new TypeError(`Unknown prettier option: ${argv}`);
   }
 
   // Search the directory tree for .prettierrc and use the one provided by eilos if we can't find it
@@ -40,14 +35,14 @@ function runPrettier(ctx, argv) {
 
   return ctx.exec(
     "prettier",
-    [].concat(
+    ([] as string[]).concat(
       [prettier_action, "--config", cfgFile, prettier_file_patterns].flat(),
       argv
     )
   );
 }
 
-function runEslint(ctx) {
+function runEslint(ctx: PresetRuntimeContext) {
   // Make sure there aren't any options that we are ignoring or that we don't know about
 
   // Search the directory tree for .prettierrc and use the one provided by eilos if we can't find it
@@ -77,38 +72,26 @@ function runEslint(ctx) {
   return ctx.exec("eslint", eslintArgs);
 }
 
-module.exports = {
-  files: {
-    "eslint.config.json": (ctx) => {
-      const { merge } = ctx.util;
-      const userConfig = ctx.getConfig("eslint", {});
-
-      return merge(configEslint(ctx), userConfig);
-    },
-    "prettier.config.json": (ctx) => {
-      const { merge } = ctx.util;
-      const userConfig = ctx.getConfig("prettier", {});
-
-      return merge(configPrettier(ctx), userConfig);
-    },
-  },
-
-  run: (ctx) => {
-    let argv = ctx.getConfig("argv", []);
+const Action = DefineAction(Config, {
+  useFiles: ["eslint.config.json", "prettier.config.json"],
+  run: async (ctx) => {
+    let argv = ctx.getOption("argv", []);
 
     if (argv[0] === "prettier") {
       argv.shift();
-      return runPrettier(ctx, argv);
+      await runPrettier(ctx, argv);
     }
 
     if (argv[0] === "eslint") {
       argv.shift();
-      return runEslint(ctx);
+      await runEslint(ctx);
     }
 
     if (argv[0] === "all") {
       argv.shift();
-      return runPrettier(ctx, argv).then(() => runEslint(ctx));
+      await runPrettier(ctx, argv).then(() => runEslint(ctx));
     }
   },
-};
+});
+
+export default Action;

@@ -1,11 +1,12 @@
-const fs = require("fs");
-const path = require("path");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+import fs from "fs";
+import CopyWebpackPlugin from "copy-webpack-plugin";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import type { ConfigFileContents } from "eilos";
+import type { GlobalRuntimeContext } from "../options";
 
-function getEntryConfig(ctx) {
-  const entry = ctx.getConfig("entry");
+function getEntryConfig(ctx: GlobalRuntimeContext) {
+  const entry = ctx.getOption("entry");
   if (typeof entry === "string") {
     return {
       index: entry,
@@ -15,8 +16,7 @@ function getEntryConfig(ctx) {
   return entry;
 }
 
-module.exports = (ctx) => {
-  const options = ctx.getConfig("options");
+export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
   const plugins = [
     new MiniCssExtractPlugin({
       filename: "[name].css",
@@ -25,7 +25,7 @@ module.exports = (ctx) => {
   ];
 
   // Load copy plug-in if we have a static directory
-  const staticDir = ctx.getConfig("static", "./static");
+  const staticDir = ctx.getOption("staticSrcDir", "./static");
   if (fs.existsSync(staticDir)) {
     plugins.push(
       new CopyWebpackPlugin({
@@ -35,8 +35,8 @@ module.exports = (ctx) => {
   }
 
   // Check if we are building a library
-  const library = ctx.getConfig("library", null);
-  const libraryOutput = {};
+  const library = ctx.getOption("library", false);
+  const libraryOutput = {} as any;
   if (library != null) {
     libraryOutput.libraryTarget = "umd";
 
@@ -70,8 +70,8 @@ module.exports = (ctx) => {
   }
 
   // If we have external references, build the webpack configuration for them
-  const externalModules = ctx.getConfig("externals", []);
-  const externals = {};
+  const externalModules = ctx.getOption("externals", []);
+  const externals = {} as any;
   if (externalModules && externalModules.length) {
     externalModules.forEach((extern) => {
       externals[extern] = `commonjs2 ${extern}`;
@@ -79,8 +79,8 @@ module.exports = (ctx) => {
   }
 
   // Additional modules to include
-  const ignoreExcludeRules = {};
-  const srcModules = ctx.getConfig("sourceModules");
+  const srcModules = ctx.getOption("sourceModules");
+  const ignoreExcludeRules = {} as any;
   if (srcModules) {
     if (Array.isArray(srcModules)) {
       ignoreExcludeRules.exclude = srcModules;
@@ -107,18 +107,20 @@ module.exports = (ctx) => {
         {
           test: /\.(png|jpe?g|gif|svg)$/i,
           exclude: /\.react\.svg$/,
-          use: options.embedAssets ? [
-            {
-              loader: "url-loader",
-              options: {
-                limit: Infinity
-              }
-            }
-          ] : [
-            {
-              loader: "file-loader",
-            },
-          ],
+          use: ctx.getOption("embedAssets")
+            ? [
+                {
+                  loader: "url-loader",
+                  options: {
+                    limit: Infinity,
+                  },
+                },
+              ]
+            : [
+                {
+                  loader: "file-loader",
+                },
+              ],
         },
         {
           test: /\.css$/i,
@@ -133,8 +135,8 @@ module.exports = (ctx) => {
           exclude: [
             {
               test: /node_modules/,
-              ...ignoreExcludeRules
-            }
+              ...ignoreExcludeRules,
+            },
           ],
           use: [
             {
@@ -168,4 +170,4 @@ module.exports = (ctx) => {
       contentBase: ctx.getDirectory("static"),
     },
   };
-};
+}
