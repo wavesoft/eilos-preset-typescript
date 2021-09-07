@@ -25,6 +25,10 @@ const file = DefinePresetFile(Options, {
     "  const content: any;",
     "  export default content;",
     "}",
+    'declare module "*.woff2" {',
+    "  const content: any;",
+    "  export default content;",
+    "}",
   ].join("\n"),
 });
 
