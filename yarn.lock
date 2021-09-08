@@ -3004,6 +3004,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/bytes@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "@types/bytes@npm:3.1.1"
+  checksum: 29c543019d810fbb4465662cd5eec4dc0fd1e1d5466abe256edf75e47575721b398df82676d550e29be02de55c487f7fb4d870d4262b22e33433d5bab2077fa2
+  languageName: node
+  linkType: hard
+
 "@types/copy-webpack-plugin@npm:^8.0.1":
   version: 8.0.1
   resolution: "@types/copy-webpack-plugin@npm:8.0.1"
@@ -4127,7 +4134,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bytes@npm:3.1.0":
+"bytes@npm:3.1.0, bytes@npm:^3.1.0":
   version: 3.1.0
   resolution: "bytes@npm:3.1.0"
   checksum: 7c3b21c5d9d44ed455460d5d36a31abc6fa2ce3807964ba60a4b03fd44454c8cf07bb0585af83bfde1c5cc2ea4bbe5897bc3d18cd15e0acf25a3615a35aba2df
@@ -5045,6 +5052,7 @@ __metadata:
     "@babel/core": ^7.10.2
     "@babel/preset-env": ^7.10.2
     "@svgr/webpack": ^5.5.0
+    "@types/bytes": ^3.1.1
     "@types/copy-webpack-plugin": ^8.0.1
     "@types/jest": ^27.0.1
     "@types/mini-css-extract-plugin": ^2.2.0
@@ -5054,9 +5062,10 @@ __metadata:
     "@typescript-eslint/parser": ^4.22.0
     ajv: ^8.6.2
     babel-jest: ^27.0.5
+    bytes: ^3.1.0
     copy-webpack-plugin: ^9.0.1
     css-loader: ^6.2.0
-    eilos: ^1.0.0
+    eilos: ^1.0.3
     eslint: ^7.25.0
     file-loader: ^6.2.0
     fork-ts-checker-webpack-plugin: ^6.3.2
@@ -5076,9 +5085,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"eilos@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "eilos@npm:1.0.1"
+"eilos@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "eilos@npm:1.0.3"
   dependencies:
     "@types/yargs": ^17.0.2
     ajv: ^8.6.2
@@ -5091,7 +5100,7 @@ __metadata:
     yargs: ^17.1.1
   bin:
     eilos: bin/eilos.js
-  checksum: f22a329da0d14a7b98e5fa98cdd65727cae73abc09b6b1061bce15a82374988a2bfe17342508b0520285660a972e672c1cf457c4220bc33fd0cca3bda044b50f
+  checksum: 83307070a801445c918b8b85d3e24533aec42f25cff4e6117984fa73789267da32cf0c85473ec31fdbbfe8f2256342756c04b51245e8598eef91649ea360cc90
   languageName: node
   linkType: hard
 

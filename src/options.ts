@@ -108,6 +108,23 @@ export const Options = DefinePresetOptions({
     },
   },
 
+  advancedChunkSplitting: {
+    defaultValue: false,
+    description:
+      "When specified it enables dynamic chunk splitting on webpack. " +
+      "You can set this to `true` to enable maximum possible chunk splitting, or it can " +
+      "be a path to a .js file that exports a function to use for post-build processing of " +
+      "the entry points",
+    schema: [
+      {
+        type: "string",
+      },
+      {
+        type: "boolean",
+      },
+    ],
+  },
+
   //////////////////////////////////////
   // Deprecated parameters
   //////////////////////////////////////

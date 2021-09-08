@@ -87,6 +87,14 @@ export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
     }
   }
 
+  // Additional optimization options
+  const optimization: any = {};
+  if (ctx.getOption("advancedChunkSplitting")) {
+    optimization.splitChunks = {
+      chunks: "all",
+    };
+  }
+
   return {
     entry: getEntryConfig(ctx),
     context: ctx.getDirectory("project"),
@@ -153,6 +161,7 @@ export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
       ],
     },
     plugins: plugins,
+    optimization,
     externals,
     resolve: {
       extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],

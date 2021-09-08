@@ -1,5 +1,6 @@
 import {
   DefinePresetConfig,
+  DefinePresetOutputFile,
   PresetRuntimeContext as TPresetRuntimeContext,
 } from "eilos";
 import { Options } from "./options";
@@ -24,6 +25,11 @@ export const Config = DefinePresetConfig({
     "prettier.config.json": prettierConfig,
     "tsconfig.json": tsConfig,
     "webpack.config.js": webpackConfigFile,
+
+    // Output files
+    "webpack.stats.json": DefinePresetOutputFile(Options, {
+      mimeType: "application/json",
+    }),
   },
 });
 
