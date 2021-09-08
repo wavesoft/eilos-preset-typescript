@@ -1,9 +1,11 @@
 import fs from "fs";
+import path from "path";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import type { ConfigFileContents } from "eilos";
 import type { GlobalRuntimeContext } from "../options";
+import { StatsProcessorPlugin } from "../plugins/StatsProcessorPlugin";
 
 function getEntryConfig(ctx: GlobalRuntimeContext) {
   const entry = ctx.getOption("entry");
@@ -89,10 +91,30 @@ export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
 
   // Additional optimization options
   const optimization: any = {};
-  if (ctx.getOption("advancedChunkSplitting")) {
+  const advancedChunkSplitting = ctx.getOption("advancedChunkSplitting");
+  if (advancedChunkSplitting) {
     optimization.splitChunks = {
       chunks: "all",
     };
+
+    // If the user has provided a path to a module that holds a chunk post-processing
+    // logic, then plug a `StatsProcessorPlugin` that will take care of calling-out
+    // to that module every time the compilation has finished.
+    if (typeof advancedChunkSplitting === "string") {
+      // Lcoate the full path to the module file, relative to the project root
+      let fullPath = path.resolve(
+        ctx.getDirectory("project"),
+        advancedChunkSplitting
+      );
+      if (!fullPath.endsWith(".js")) fullPath += ".js";
+
+      // Source the post-processing function
+      ctx.logger.debug(`Post-processing chunks using ${fullPath}`);
+      const fn = __non_webpack_require__(fullPath);
+
+      // Create the plugin
+      plugins.push(new StatsProcessorPlugin({ fn, ctx }));
+    }
   }
 
   return {
