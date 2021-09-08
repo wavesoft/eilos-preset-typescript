@@ -15,7 +15,7 @@ const Action = DefineAction(Config, {
     const collect = ctx.getOption("advancedChunkSplitting", false);
     if (collect) {
       const statsFile = ctx.getConfigFilePath("webpack.stats.json");
-      args.push(`---json="${statsFile}"`);
+      args.push(`--json="${statsFile}"`);
     }
 
     return ctx.exec("webpack", args.concat(argv));
