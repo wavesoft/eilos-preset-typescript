@@ -31,6 +31,7 @@
   "dependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
+    "@statoscope/webpack-plugin": "^5.7.2",
     "@svgr/webpack": "^5.5.0",
     "@types/jest": "^27.0.1",
     "@types/react": "^16.9.36",

@@ -3,6 +3,7 @@ import { Options } from "../options";
 
 import configWebpackBase from "./webpack.config.base";
 import configWebpackHot from "./webpack.config.hot";
+import configWebpackStats from "./webpack.config.hot";
 
 const file = DefinePresetFile(Options, {
   mimeType: "application/javascript",
@@ -14,6 +15,9 @@ const file = DefinePresetFile(Options, {
     let config = configWebpackBase(ctx);
     if (ctx.getOption("hot")) {
       config = merge(config, configWebpackHot(ctx));
+    }
+    if (ctx.getArg("stats" as never)) {
+      config = merge(config, configWebpackStats(ctx));
     }
 
     return merge(config, userConfig);
