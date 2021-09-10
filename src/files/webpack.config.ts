@@ -3,7 +3,7 @@ import { Options } from "../options";
 
 import configWebpackBase from "./webpack.config.base";
 import configWebpackHot from "./webpack.config.hot";
-import configWebpackStats from "./webpack.config.hot";
+import configWebpackStats from "./webpack.config.stats";
 
 const file = DefinePresetFile(Options, {
   mimeType: "application/javascript",
