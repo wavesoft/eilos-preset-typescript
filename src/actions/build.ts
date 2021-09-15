@@ -1,5 +1,3 @@
-import path from "path";
-import bytes from "bytes";
 import { DefineAction } from "eilos";
 
 import { Config } from "../config";
@@ -10,6 +8,12 @@ const Action = DefineAction(Config, {
     stats: {
       defaultValue: false,
       description: "Create a stats report after the build",
+      type: "boolean",
+    },
+    "no-circular": {
+      defaultValue: false,
+      description:
+        "Throws an error if there are circular references on the modules",
       type: "boolean",
     },
   },

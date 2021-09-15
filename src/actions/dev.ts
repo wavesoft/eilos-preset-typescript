@@ -10,6 +10,12 @@ const Action = DefineAction(Config, {
       description: "Create a stats report after the build",
       type: "boolean",
     },
+    "no-circular": {
+      defaultValue: false,
+      description:
+        "Throws an error if there are circular references on the modules",
+      type: "boolean",
+    },
   },
   run: (ctx) => {
     const cfgFile = ctx.getConfigFilePath("webpack.config.js");
