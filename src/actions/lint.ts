@@ -51,7 +51,7 @@ function runEslint(ctx: PresetRuntimeContext) {
     eslintrcFile = ctx.resolveFilePath(".eslintrc.js");
     ctx.logger.debug("eslint configuration file from: ", eslintrcFile);
   } catch (e) {
-    eslintrcFile = ctx.getConfigFilePath("eslint.config.json");
+    eslintrcFile = ctx.getConfigFilePath("eslint.config.js");
     ctx.logger.debug("eslint configuration file from eilos: ", eslintrcFile);
   }
 
@@ -73,7 +73,7 @@ function runEslint(ctx: PresetRuntimeContext) {
 }
 
 const Action = DefineAction(Config, {
-  useFiles: ["eslint.config.json", "prettier.config.json"],
+  useFiles: ["eslint.config.js", "prettier.config.json", "tsconfig.json"],
   run: async (ctx) => {
     let argv = ctx.getOption("argv", []);
 

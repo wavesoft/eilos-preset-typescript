@@ -3,13 +3,15 @@ import { DefinePresetFile } from "eilos";
 import { Options } from "../options";
 
 const file = DefinePresetFile(Options, {
-  mimeType: "application/json",
+  mimeType: "application/javascript",
   generator: (ctx) => {
     const { merge } = ctx.util;
     const userConfig = ctx.getOption("eslint", {});
 
-    // Base 'eslint.config.json' contents
-    const BaseConfig = {};
+    // Base 'eslint.config.js' contents
+    const BaseConfig = {
+
+    };
 
     return merge(BaseConfig, userConfig);
   },

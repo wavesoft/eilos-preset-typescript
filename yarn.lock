@@ -5250,7 +5250,7 @@ __metadata:
     bytes: ^3.1.0
     copy-webpack-plugin: ^9.0.1
     css-loader: ^6.2.0
-    eilos: ^1.0.3
+    eilos: ^1.0.9
     eslint: ^7.25.0
     file-loader: ^6.2.0
     fork-ts-checker-webpack-plugin: ^6.3.2
@@ -5270,9 +5270,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"eilos@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "eilos@npm:1.0.3"
+"eilos@npm:^1.0.9":
+  version: 1.0.9
+  resolution: "eilos@npm:1.0.9"
   dependencies:
     "@types/yargs": ^17.0.2
     ajv: ^8.6.2
@@ -5285,7 +5285,7 @@ __metadata:
     yargs: ^17.1.1
   bin:
     eilos: bin/eilos.js
-  checksum: 83307070a801445c918b8b85d3e24533aec42f25cff4e6117984fa73789267da32cf0c85473ec31fdbbfe8f2256342756c04b51245e8598eef91649ea360cc90
+  checksum: 7dd4976092785d84b3b48b85e094960520786e8a72130926e67ccff518f44dc08ba77cc6c4a53f72af8e2ff190f12ab90e0b03680b1cd5504935c95dcf5ce72d
   languageName: node
   linkType: hard
 

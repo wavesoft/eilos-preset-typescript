@@ -20,7 +20,7 @@ export const Config = DefinePresetConfig({
   options: Options,
   files: {
     "@types/typings.d.ts": tsTypings,
-    "eslint.config.json": eslitConfig,
+    "eslint.config.js": eslitConfig,
     "jest.config.js": jestConfig,
     "prettier.config.json": prettierConfig,
     "tsconfig.json": tsConfig,

@@ -33,7 +33,7 @@ const file = DefinePresetFile(Options, {
         jsx: "react",
         lib: ["dom", "es2018"],
         declarationDir: ctx.getDirectory("dist"),
-        module: "es6",
+        module: ctx.getOption("advancedChunkSplitting") ? "esnext" : "es6",
         moduleResolution: "node",
         noImplicitAny: true,
         outDir: ctx.getDirectory("dist"),

@@ -3,7 +3,7 @@ import { DefinePresetFile } from "eilos";
 import { Options } from "../options";
 
 const file = DefinePresetFile(Options, {
-  mimeType: "application/javascript",
+  mimeType: "application/json",
   generator: (ctx) => {
     const { merge } = ctx.util;
     const userConfig = ctx.getOption("prettier", {});
