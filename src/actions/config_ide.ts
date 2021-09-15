@@ -34,7 +34,7 @@ const Action = DefineAction(Config, {
     const dTypes = path.join(dIde, "types");
 
     const fTsconfigJson = path.join(dProject, "tsconfig.json");
-    const fEslintrc = path.join(dProject, ".eslintrc");
+    const fEslintrc = path.join(dProject, ".eslintrc.js");
     const fPrettierrc = path.join(dProject, ".prettierrc");
     const fJestConfigJs = path.join(dProject, "jest.config.js");
     const fGitignore = path.join(dProject, ".gitignore");
@@ -82,7 +82,7 @@ const Action = DefineAction(Config, {
     // Update gitignore
     ctx.logger.info(`Updating .gitignore`);
     await updateGitignore(ctx, fGitignore, "tsconfig.json");
-    await updateGitignore(ctx, fGitignore, ".eslintrc");
+    await updateGitignore(ctx, fGitignore, ".eslintrc.js");
     await updateGitignore(ctx, fGitignore, ".prettierrc");
     await updateGitignore(ctx, fGitignore, "jest.config.js");
     await updateGitignore(ctx, fGitignore, ".ide");
