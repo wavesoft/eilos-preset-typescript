@@ -125,9 +125,19 @@ export const Options = DefinePresetOptions({
     ],
   },
 
+  circularDependencies: {
+    defaultValue: "ignore",
+    description:
+      "Enables circular dependency detection and either fails the build or shows an error",
+    schema: {
+      enum: ["ignore", "error", "warning"] as const,
+    },
+  },
+
   //////////////////////////////////////
   // Deprecated parameters
   //////////////////////////////////////
+
   webpack: {
     deprecated:
       "You should never override this configuration, instead you should create a custom preset for your needs",

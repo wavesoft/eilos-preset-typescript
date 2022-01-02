@@ -20,7 +20,9 @@ const file = DefinePresetFile(Options, {
     if (ctx.getArg("stats" as never)) {
       config = merge(config, configWebpackStats(ctx));
     }
-    if (ctx.getArg("no-circular" as never)) {
+
+    const v = ctx.getOption("circularDependencies", "ignore");
+    if (ctx.getArg("no-circular" as never) || v != "ignore") {
       config = merge(config, configWebpackCircular(ctx));
     }
 

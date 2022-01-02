@@ -18,6 +18,10 @@ const Action = DefineAction(Config, {
     },
   },
   run: (ctx) => {
+    // Configure the dist folder
+    const outputDir = ctx.getOption("outputDir", "dist");
+    ctx.setDirectory("dist", outputDir);
+
     const cfgFile = ctx.getConfigFilePath("webpack.config.js");
     const argv = ctx.getOption("argv", []);
     const args: string[] = ["--config", cfgFile];
