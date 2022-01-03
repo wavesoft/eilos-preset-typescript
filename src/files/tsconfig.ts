@@ -8,6 +8,7 @@ const file = DefinePresetFile(Options, {
   generator: (ctx) => {
     const { merge } = ctx.util;
     const userConfig = ctx.getOption("tsconfig", {});
+    const projectDir = ctx.getDirectory("project");
 
     // Find the base dir from the entry point(s)
     const entryPoint = ctx.getOption("entry");
@@ -20,23 +21,38 @@ const file = DefinePresetFile(Options, {
       includeDirs = [path.dirname(entryPoint) + "/**/*"];
     }
 
+    // Convert relative to absolute URLs
+    includeDirs = includeDirs.map((dir) => {
+      if (!dir.startsWith("./")) return dir;
+      return path.join(projectDir, dir.substring(1));
+    });
+
+    // Include possibly additional source directories
+    const sourceDirs = ctx.getOption("sourceDirs");
+    includeDirs = sourceDirs.reduce(
+      (dirs, dir) =>
+        dirs.concat(ctx.getAbsolutePathFromDirectory("project", dir)),
+      includeDirs
+    );
+
     // Base 'tsconfig.json' contents
     const BaseConfig = {
       compilerOptions: {
         allowJs: true,
         allowSyntheticDefaultImports: true,
-        esModuleInterop: true,
-        resolveJsonModule: true,
-        baseUrl: ctx.getDirectory("project"),
+        baseUrl: projectDir,
         declaration: true,
+        declarationDir: ctx.getDirectory("dist"),
+        esModuleInterop: true,
+        forceConsistentCasingInFileNames: true,
         importsNotUsedAsValues: "preserve",
         jsx: "react",
         lib: ["dom", "es2018"],
-        declarationDir: ctx.getDirectory("dist"),
         module: ctx.getOption("advancedChunkSplitting") ? "esnext" : "es6",
         moduleResolution: "node",
         noImplicitAny: true,
         outDir: ctx.getDirectory("dist"),
+        resolveJsonModule: true,
         sourceMap: true,
         strict: true,
         target: "es6",

@@ -98,16 +98,6 @@ export const Options = DefinePresetOptions({
     },
   },
 
-  prettierFilePatterns: {
-    defaultValue: ["src/**/*.js", "src/**/*.ts", "**/*.md"],
-    description: "An array of file patterns to consider for the linting phase.",
-    schema: {
-      elements: {
-        type: "string",
-      },
-    },
-  },
-
   advancedChunkSplitting: {
     defaultValue: false,
     description:
@@ -131,6 +121,27 @@ export const Options = DefinePresetOptions({
       "Enables circular dependency detection and either fails the build or shows an error",
     schema: {
       enum: ["ignore", "error", "warning"] as const,
+    },
+  },
+
+  sourceDirs: {
+    defaultValue: ["src"],
+    description:
+      "An array of directories that is holding source code to be considered " +
+      "for the linting and typescript phases.",
+    schema: {
+      elements: {
+        type: "string",
+      },
+    },
+  },
+
+  prettierFilePatterns: {
+    description: "An array of file patterns to consider for the linting phase.",
+    schema: {
+      elements: {
+        type: "string",
+      },
     },
   },
 

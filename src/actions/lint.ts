@@ -4,8 +4,17 @@ import { Config } from "../config";
 import type { PresetRuntimeContext } from "../config";
 
 function runPrettier(ctx: PresetRuntimeContext, argv: string[]) {
+  // The default pattern is considering all 'sourceDirs'
+  const sourceDirs = ctx.getOption("sourceDirs");
+  const defaultPatterns = sourceDirs.reduce((paths, dir) => {
+    return paths.concat([`${dir}/**/*.ts`, `${dir}/**/*.js`]);
+  }, [] as string[]);
+
   // Get file patterns to match from `options` or use the default pattern
-  const prettier_file_patterns = ctx.getOption("prettierFilePatterns");
+  const prettierFilesPattern = ctx.getOption(
+    "prettierFilePatterns",
+    defaultPatterns
+  );
 
   // Determine the prettier action that we want to take. It can either be `check` or `write`. We default to
   // `--check`
@@ -24,19 +33,13 @@ function runPrettier(ctx: PresetRuntimeContext, argv: string[]) {
   }
 
   // Search the directory tree for .prettierrc and use the one provided by eilos if we can't find it
-  let cfgFile;
-  try {
-    cfgFile = ctx.resolveFilePath(".prettierrc");
-    ctx.logger.debug("Prettier configuration from: " + cfgFile);
-  } catch (e) {
-    cfgFile = ctx.getConfigFilePath("prettier.config.json");
-    ctx.logger.debug("Prettier configuration from eilos: " + cfgFile);
-  }
+  const cfgFile = ctx.getConfigFilePath("prettier.config.json");
+  ctx.logger.debug("Prettier configuration from eilos: " + cfgFile);
 
   return ctx.exec(
     "prettier",
     ([] as string[]).concat(
-      [prettier_action, "--config", cfgFile, prettier_file_patterns].flat(),
+      [prettier_action, "--config", cfgFile, prettierFilesPattern].flat(),
       argv
     )
   );
@@ -46,14 +49,8 @@ function runEslint(ctx: PresetRuntimeContext) {
   // Make sure there aren't any options that we are ignoring or that we don't know about
 
   // Search the directory tree for .prettierrc and use the one provided by eilos if we can't find it
-  let eslintrcFile;
-  try {
-    eslintrcFile = ctx.resolveFilePath(".eslintrc.js");
-    ctx.logger.debug("eslint configuration file from: ", eslintrcFile);
-  } catch (e) {
-    eslintrcFile = ctx.getConfigFilePath("eslint.config.js");
-    ctx.logger.debug("eslint configuration file from eilos: ", eslintrcFile);
-  }
+  const eslintrcFile = ctx.getConfigFilePath("eslint.config.js");
+  ctx.logger.debug("eslint configuration file from eilos: ", eslintrcFile);
 
   let eslintIgnoreFile;
   try {
@@ -61,15 +58,23 @@ function runEslint(ctx: PresetRuntimeContext) {
     ctx.logger.debug("eslint configuration file from: ", eslintrcFile);
   } catch {}
 
-  let eslintArgs = ["--config", eslintrcFile];
-
+  // Ignore all root .eslintrc files and only consider the given config
+  let eslintArgs = ["--no-eslintrc", "--config", eslintrcFile];
   if (eslintIgnoreFile) {
     eslintArgs = eslintArgs.concat(["--ignore-path", eslintIgnoreFile]);
   }
 
-  eslintArgs.push(".");
+  // Lint all directories listed in 'sourceDirs'
+  const sourceDirs = ctx.getOption("sourceDirs");
+  eslintArgs.push(
+    ...sourceDirs.map((path) =>
+      ctx.getAbsolutePathFromDirectory("project", path)
+    )
+  );
 
-  return ctx.exec("eslint", eslintArgs);
+  return ctx.exec("eslint", eslintArgs, {
+    cwd: ctx.getDirectory("project"),
+  });
 }
 
 const Action = DefineAction(Config, {
