@@ -145,6 +145,15 @@ export const Options = DefinePresetOptions({
     },
   },
 
+  typeCheck: {
+    defaultValue: "default",
+    description:
+      "Controls how type checking is applied in the project",
+    schema: {
+      enum: ["disable", "default"] as const,
+    },
+  },
+
   //////////////////////////////////////
   // Deprecated parameters
   //////////////////////////////////////

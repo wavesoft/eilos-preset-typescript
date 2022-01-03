@@ -71,6 +71,15 @@ export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
     });
   }
 
+  // Handle the no type-check options
+  const typeCheck = ctx.getOption("typeCheck", "default");
+  if (typeCheck === "disable") {
+    Object.assign(tsLoaderOptions, {
+      happyPackMode: true,
+      transpileOnly: true,
+    });
+  }
+
   // If we have external references, build the webpack configuration for them
   const externalModules = ctx.getOption("externals", []);
   const externals = {} as any;
