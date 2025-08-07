@@ -4,11 +4,11 @@ This preset can be used for a typical, modern Typescript project with React.
 
 ## Components
 
-* Webpack (4.43)
-* Typescript (4.2)
-* React (16.9)
-* Jest (26.0)
-* SASS (1.26)
+* Webpack (5.101)
+* Typescript (5.9)
+* React (17.0)
+* Jest (30.0)
+* SASS (1.90)
 
 ### Optimisations
 
