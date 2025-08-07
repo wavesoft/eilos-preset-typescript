@@ -19,7 +19,7 @@ function getEntryConfig(ctx: GlobalRuntimeContext) {
 }
 
 export default function (ctx: GlobalRuntimeContext): ConfigFileContents {
-  const plugins = [
+  const plugins: any[] = [
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[name].css",

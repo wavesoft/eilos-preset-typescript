@@ -1,28 +1,25 @@
 import { DefineAction, RuntimeContext } from "eilos";
-import fs from "fs";
+import fs from "fs/promises";
+import fsSync from "fs";
 import path from "path";
-import util from "util";
 
 import { Config } from "../config";
 
-const fsReadFile = util.promisify(fs.readFile);
-const fsWriteFile = util.promisify(fs.writeFile);
-const fsMkdir = util.promisify(fs.mkdir);
 
 async function updateGitignore(
   ctx: RuntimeContext,
   path: string,
   line: string
 ) {
-  const gitignoreLines: string[] = fs.existsSync(path)
-    ? await (await fsReadFile(path)).toString().split("\n")
+  const gitignoreLines: string[] = fsSync.existsSync(path)
+    ? await (await fs.readFile(path)).toString().split("\n")
     : [];
 
   const exists = gitignoreLines.includes(line);
   if (!exists) {
     ctx.logger.silly(`Adding '${line}' on gitignore at ${path}`);
     gitignoreLines.push(line);
-    await fsWriteFile(path, gitignoreLines.join("\n"));
+    await fs.writeFile(path, gitignoreLines.join("\n"));
   }
 }
 
@@ -50,31 +47,31 @@ const Action = DefineAction(Config, {
     // This is used by tsconfig.json to figure out where are the dynamic typings
     ctx.setConfigFilePath("@types" as any, dTypes);
     ctx.logger.debug(`Creating ${dTypes} directory`);
-    await fsMkdir(dTypes, { recursive: true });
+    await fs.mkdir(dTypes, { recursive: true });
 
     // Write files
     ctx.logger.info(`Writing ${fTsconfigJson}`);
-    await fsWriteFile(
+    await fs.writeFile(
       fTsconfigJson,
       await ctx.getConfigFileContents("tsconfig.json")
     );
     ctx.logger.info(`Writing ${fEslintrc}`);
-    await fsWriteFile(
+    await fs.writeFile(
       fEslintrc,
       await ctx.getConfigFileContents("eslint.config.js")
     );
     ctx.logger.info(`Writing ${fPrettierrc}`);
-    await fsWriteFile(
+    await fs.writeFile(
       fPrettierrc,
       await ctx.getConfigFileContents("prettier.config.json")
     );
     ctx.logger.info(`Writing ${fJestConfigJs}`);
-    await fsWriteFile(
+    await fs.writeFile(
       fJestConfigJs,
       await ctx.getConfigFileContents("jest.config.js")
     );
     ctx.logger.info(`Writing ${fTypings}`);
-    await fsWriteFile(
+    await fs.writeFile(
       fTypings,
       await ctx.getConfigFileContents("@types/typings.d.ts")
     );
